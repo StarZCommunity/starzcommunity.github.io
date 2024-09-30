@@ -4,22 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="0; url=starzlauncher.html"> <!-- Redirects to starzlauncher.html -->
-    <title>Redirecting...</title>
+    <title>Redirecting to StarZ Launcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet"> <!-- Outfit font -->
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #242C35;
-            color: #FFF;
-            font-family: 'Outfit', sans-serif;
             margin: 0;
+            background-color: #242C35; /* Background color */
+            font-family: 'Outfit', sans-serif; /* Font style */
+            color: #FFF; /* Text color */
+            text-align: center; /* Center text */
+            animation: fadeIn 1s ease; /* Fade-in animation */
+        }
+
+        h1 {
+            font-size: 2.5rem; /* Title size */
+            margin-bottom: 20px; /* Space below title */
+        }
+
+        p {
+            font-size: 1.2rem; /* Paragraph size */
+            margin-bottom: 30px; /* Space below paragraph */
+        }
+
+        a {
+            text-decoration: none; /* Remove underline */
+            color: #00C7ED; /* Link color */
+            font-weight: bold; /* Bold link */
+            transition: color 0.3s ease; /* Transition for link color */
+        }
+
+        a:hover {
+            color: #FF0044EA; /* Change color on hover */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Redirecting to StarZ Launcher...</h1>
-    <p>If you are not redirected, <a href="starzlauncher.html">click here</a>.</p>
+    <div>
+        <h1>Redirecting to StarZ Launcher...</h1>
+        <p>If you are not redirected, <a href="starzlauncher.html">click here</a>.</p>
+    </div>
 </body>
 </html>
