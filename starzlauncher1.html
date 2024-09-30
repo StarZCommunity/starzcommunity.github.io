@@ -1,43 +1,451 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarZ Launcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    body {
+      background-color: #171D22; /* Base background color */
+      color: #FFF6F8FA; /* Default text color */
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      scroll-behavior: smooth; /* Smooth scrolling */
+    }
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    /* Animated Background */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(45deg, #0033FF, #0099FF, #00CCFF); /* Brighter blue gradient */
+      background-size: 300% 300%; /* For enhanced gradient movement */
+      animation: gradientMove 10s ease infinite; /* Slower animation for smoother effect */
+      filter: blur(10px); /* Add a blur effect */
+    }
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      25% {
+        background-position: 100% 50%;
+      }
+      50% {
+        background-position: 50% 100%;
+      }
+      75% {
+        background-position: 0% 100%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      z-index: 1000; /* Ensure it stays on top */
+      animation: slideDown 0.5s ease; /* Slide down animation */
+    }
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    nav ul {
+      list-style: none; /* Remove default list styling */
+      display: flex;
+      gap: 20px; /* Space between items */
+    }
+
+    nav ul li a {
+      color: #FFF6F8FA; /* Link color */
+      text-decoration: none; /* Remove underline */
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 30px; /* Rounded buttons */
+      transition: background-color 0.3s ease, transform 0.3s; /* Smooth hover effect */
+    }
+
+    nav ul li a:hover {
+      background-color: #00C7ED; /* Highlight on hover */
+      transform: scale(1.05); /* Slightly grow on hover */
+    }
+
+    /* Header Section */
+    header {
+      text-align: center;
+      padding: 150px 20px; /* Top padding for visual spacing */
+      position: relative;
+      z-index: 1; /* Keep on top of background */
+      animation: fadeIn 1s ease; /* Fade-in animation */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header img {
+      width: 300px; /* Logo size */
+      margin-bottom: 20px;
+      animation: bounce 2s infinite; /* Bounce animation */
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    header h1 {
+      font-size: 3rem; /* Title font size */
+      color: #FFF6F8FA; /* Title color */
+      animation: slideIn 0.8s ease; /* Slide-in animation */
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    header p {
+      font-size: 1.2rem; /* Subtitle font size */
+      color: #C0C7D1; /* Subtitle color */
+      animation: fadeIn 1s ease; /* Fade-in animation for subtitle */
+    }
+
+    .btn-primary {
+      display: inline-block; /* Centering button */
+      margin-top: 20px; /* Spacing above button */
+      padding: 12px 30px; /* Button padding */
+      background: linear-gradient(45deg, #0044EA, #00C7ED); /* Gradient background */
+      background-size: 200% 200%; /* For animation */
+      border-radius: 30px; /* Rounded button */
+      color: #FFF6F8FA; /* Button text color */
+      font-weight: bold;
+      text-transform: uppercase; /* Uppercase text */
+      text-decoration: none; /* Remove underline */
+      transition: transform 0.3s ease; /* Smooth transitions for scaling */
+      animation: gradientAnimation 5s ease infinite; /* Gradient animation */
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05); /* Slightly grow on hover */
+    }
+
+
+    /* Section Styles */
+    section {
+      padding: 60px 20px; /* Padding for sections */
+      text-align: center; /* Centered text */
+      background-color: #242C35; /* Section background */
+      transition: background-color 0.5s ease; /* Smooth transition for background color */
+      border-radius: 10px; /* Rounded corners */
+      margin: 20px 0; /* Margin between sections */
+      position: relative;
+      z-index: 1; /* Keep on top of background */
+      animation: fadeIn 1s ease; /* Fade-in animation */
+    }
+
+    section h2 {
+      font-size: 2.5rem; /* Section title size */
+      margin-bottom: 40px; /* Space below title */
+      color: #FFF6F8FA; /* Section title color */
+      animation: slideIn 0.8s ease; /* Slide-in animation */
+    }
+
+    /* Features Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+      gap: 40px; /* Space between feature boxes */
+      max-width: 1200px; /* Maximum width for content */
+      margin: 0 auto; /* Center grid */
+    }
+
+    .feature-box {
+      background-color: rgba(255, 255, 255, 0.1); /* Feature box background */
+      border-radius: 15px; /* Rounded corners */
+      padding: 20px; /* Padding inside boxes */
+      color: #FFF6F8FA; /* Text color */
+      transition: transform 0.3s ease; /* Smooth transform effect */
+      animation: fadeIn 0.5s ease; /* Fade-in animation for feature boxes */
+    }
+
+    .feature-box:hover {
+      transform: translateY(-10px); /* Lift effect on hover */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect on hover */
+    }
+
+    /* Screenshots Section Styles */
+    .screenshots-container {
+      padding: 60px 20px; /* Padding for screenshots section */
+      text-align: center; /* Center text */
+      background-color: #242C35; /* Section background */
+      margin: 20px 0; /* Margin between sections */
+      border-radius: 10px; /* Rounded corners */
+      position: relative;
+      z-index: 1; /* Keep on top of background */
+      animation: fadeIn 1s ease; /* Fade-in animation */
+    }
+
+    .screenshots {
+      display: flex;
+      justify-content: center; /* Center content */
+      gap: 40px; /* Space between images */
+      flex-wrap: wrap; /* Wrap images on smaller screens */
+      animation: fadeInUp 0.6s forwards; /* Animation for each image */
+    }
+
+    .screenshot-box {
+      width: 300px; /* Fixed width for images */
+      transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition for transform and opacity */
+      opacity: 0; /* Start hidden */
+      transform: translateY(20px); /* Start slightly lower */
+      animation: fadeInUp 0.6s forwards; /* Animation for each image */
+    }
+
+    .screenshot-box img {
+      width: 100%; /* Full width of the box */
+      border-radius: 10px; /* Rounded corners */
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screenshot-box:hover {
+      transform: scale(1.05); /* Scale effect on hover */
+    }
+
+    /* Footer Styles */
+    footer {
+      padding: 40px 20px; /* Padding for footer */
+      background-color: #151515; /* Footer background */
+      color: #FBFBFB; /* Footer text color */
+      text-align: center; /* Center text */
+      animation: fadeIn 1s ease; /* Fade-in animation for footer */
+    }
+
+    footer a {
+      color: #00C7ED; /* Link color */
+      text-decoration: none; /* Remove underline */
+      transition: color 0.3s ease; /* Smooth transition for color */
+    }
+
+    footer a:hover {
+      color: #0044EA; /* Highlight link on hover */
+    }
+
+    /* FAQ Section Styles */
+    .faq-item {
+      margin: 20px 0; /* Space between items */
+      text-align: left; /* Align text left */
+      background-color: rgba(255, 255, 255, 0.1); /* Background for FAQ items */
+      padding: 20px; /* Padding inside FAQ items */
+      border-radius: 10px; /* Rounded corners */
+      transition: transform 0.3s ease; /* Smooth transition for transform */
+      animation: fadeIn 0.5s ease; /* Fade-in animation for FAQ items */
+    }
+
+    .faq-item:hover {
+      transform: scale(1.02); /* Slightly grow on hover */
+    }
+
+    .faq-item h3 {
+      color: #00C7ED; /* FAQ question color */
+      margin-bottom: 10px; /* Space below question */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem; /* Smaller title font size for mobile */
+      }
+
+      section h2 {
+        font-size: 2rem; /* Smaller section title for mobile */
+      }
+
+      nav ul {
+        flex-direction: column; /* Stack navigation items */
+        gap: 10px; /* Reduced gap */
+      }
+
+      .features {
+        grid-template-columns: 1fr; /* Single column for mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background"></div> <!-- Background Animation -->
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#license">License</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#download">Download</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header Section -->
+  <header id="home">
+    <img src="https://github.com/ignYoqzii/StarZLauncher/blob/main/StarZ%20Launcher/StarZLauncher/Resources/StarZ%20X%20Minecraft.png?raw=true" alt="StarZ Launcher Logo">
+    <h1>StarZ Launcher</h1>
+    <p>A Powerful and User-Friendly Minecraft Launcher/Injector for Windows (Bedrock Edition)</p>
+    <a href="https://github.com/ignYoqzii/StarZLauncher/releases" class="btn-primary">Download Latest Release</a>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2>Key Features</h2>
+    <div class="features">
+      <div class="feature-box">
+        <h3>Texture Pack Management</h3>
+        <p>Seamlessly manage your texture packs with ease.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Client DLL Injection</h3>
+        <p>Inject and manage client DLLs effortlessly.</p>
+      </div>
+      <div class="feature-box">
+        <h3>RenderDragon Shader Support</h3>
+        <p>Apply stunning shaders to enhance your game.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Profile Management</h3>
+        <p>Conveniently manage your Minecraft profiles.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Cosmetics & Skin Packs</h3>
+        <p>Handle and apply skin packs and cosmetics (personas) with simplicity.</p>
+      </div>
+      <div class="feature-box">
+        <h3>V-Sync Toggler</h3>
+        <p>Easily enable or disable V-Sync.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Music Player & Downloader</h3>
+        <p>Play musics from your computer or download them from YouTube. Build your own playlist and enjoy the auto shuffle algorithm while you play!</p>
+      </div>
+      <div class="feature-box">
+        <h3>Hardware Monitoring</h3>
+        <p>View useful informations about your computer, like GPU & CPU names, temperatures, loads and fans speed, Motherboard name, Local IP Address and more!</p>
+      </div>
+      <div class="feature-box">
+        <h3>Clean & Intuitive UI</h3>
+        <p>Enjoy a user-friendly, fully customizable and aesthetically pleasing interface.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Compatibility</h3>
+        <p>Many debbuging techniques to handle many cases and scenarios.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Section -->
+  <section id="screenshots-container">
+    <h2>Screenshots</h2>
+    <div class="screenshots">
+      <div class="screenshot-box">
+        <img src="https://raw.githubusercontent.com/ignYoqzii/StarZLauncher/refs/heads/main/StarZ%20Launcher/StarZLauncher/Resources/ScreenShotDarkMode.png" alt="Dark Mode">
+        <p>Dark Mode.</p>
+      </div>
+      <div class="screenshot-box">
+        <img src="https://raw.githubusercontent.com/ignYoqzii/StarZLauncher/refs/heads/main/StarZ%20Launcher/StarZLauncher/Resources/ScreenShotLightMode.png" alt="Light Mode">
+        <p>Light Mode.</p>
+      </div>
+      <div class="screenshot-box">
+        <img src="https://raw.githubusercontent.com/ignYoqzii/StarZLauncher/refs/heads/main/StarZ%20Launcher/StarZLauncher/Resources/ScreenShotCustomTheme.png" alt="Custom Theme">
+        <p>Custom Theme (Editable in the launcher) *Inspired by Astral Client*.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- License Section -->
+  <section id="license">
+    <h2>License</h2>
+    <p>StarZ Launcher is licensed under the <a href="https://raw.githubusercontent.com/ignYoqzii/StarZLauncher/main/LICENSE.md" style="color: #00C7ED;">StarZ Launcher License</a>. Explore and contribute within the terms of the license.</p>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>Is StarZ Launcher still being updated?</h3>
+      <p>No, StarZ Launcher has officially reached the end of its development life.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Where can I find support or community help?</h3>
+      <p>Join our <a href="https://discord.gg/ScR9MGbRSY" style="color: #00C7ED;">Discord server</a> for support and community interaction.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Will the FAQ section on the website be expanded or further developed in the future?</h3>
+      <p>For sure! As the website is still in development, more questions will be added to the FAQ in the future.</p>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section id="download">
+    <h2>Download StarZ Launcher</h2>
+    <a href="https://github.com/ignYoqzii/StarZLauncher/releases" class="btn-primary">Download Latest Release</a>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>Join our <a href="https://discord.gg/ScR9MGbRSY">Discord server</a> for support and updates.</p>
+    <p>&copy; 2024 StarZ Team</p>
+  </footer>
+
+</body>
+</html>
