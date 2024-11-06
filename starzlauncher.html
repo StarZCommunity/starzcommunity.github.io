@@ -21,6 +21,17 @@
       scroll-behavior: smooth; /* Smooth scrolling */
     }
 
+    .fade-in-up {
+      opacity: 0; /* Start hidden */
+      transform: translateY(40px); /* Start slightly lower */
+      transition: opacity 0.4s ease, transform 0.4s ease; /* Smooth transition */
+    }
+
+    .fade-in-up.visible {
+      opacity: 1; /* Fade in */
+      transform: translateY(0); /* Move to original position */
+    }
+
     /* Animated Background */
     .background {
       position: fixed;
@@ -339,17 +350,17 @@
   </nav>
 
   <!-- Header Section -->
-  <header id="home">
+  <header id="home" class="fade-in-up">
     <img src="https://github.com/ignYoqzii/StarZLauncher/blob/main/StarZ%20Launcher/StarZLauncher/Resources/StarZ%20X%20Minecraft.png?raw=true" alt="StarZ Launcher Logo">
-    <h1>StarZ Launcher</h1>
-    <p>A Powerful and User-Friendly Minecraft Launcher/Injector for Windows (Bedrock Edition)</p>
+    <h1>StarZ Launcher</h1 class="fade-in-up"> 
+    <p>A Powerful and User-Friendly Minecraft Launcher/Injector for Windows (Bedrock Edition)</p class="fade-in-up">
     <a href="https://github.com/ignYoqzii/StarZLauncher/releases" class="btn-primary">Download Latest Release</a>
   </header>
 
   <!-- Features Section -->
   <section id="features">
     <h2>Key Features</h2>
-    <div class="features">
+    <div class="features" class="fade-in-up">
       <div class="feature-box">
         <h3>Texture Pack Management</h3>
         <p>Seamlessly manage your texture packs with ease.</p>
@@ -394,7 +405,7 @@
   </section>
 
   <!-- Screenshots Section -->
-  <section id="screenshots-container">
+  <section id="screenshots-container" class="fade-in-up">
     <h2>Screenshots</h2>
     <div class="screenshots">
       <div class="screenshot-box">
@@ -413,13 +424,13 @@
   </section>
 
   <!-- License Section -->
-  <section id="license">
+  <section id="license" class="fade-in-up">
     <h2>License</h2>
     <p>StarZ Launcher is licensed under the <a href="https://raw.githubusercontent.com/ignYoqzii/StarZLauncher/main/LICENSE.md" style="color: #00C7ED;">StarZ Launcher License</a>. Explore and contribute within the terms of the license.</p>
   </section>
 
   <!-- FAQ Section -->
-  <section id="faq">
+  <section id="faq" class="fade-in-up">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-item">
       <h3>Is StarZ Launcher still being updated?</h3>
@@ -436,7 +447,7 @@
   </section>
 
   <!-- Download Section -->
-  <section id="download">
+  <section id="download" class="fade-in-up">
     <h2>Download StarZ Launcher</h2>
     <a href="https://github.com/ignYoqzii/StarZLauncher/releases" class="btn-primary">Download Latest Release</a>
   </section>
@@ -447,5 +458,32 @@
     <p>&copy; 2024 StarZ Team</p>
   </footer>
 
+  <script>
+    // Function to check if an element is in the viewport
+    const isElementInViewport = (el) => {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    };
+
+    // Function to add the 'visible' class to elements in viewport
+    const fadeInElements = () => {
+        const elements = document.querySelectorAll('.fade-in-up');
+        elements.forEach((el) => {
+            if (isElementInViewport(el)) {
+                el.classList.add('visible');
+            }
+        });
+    };
+
+    // Initial check
+    window.addEventListener('load', fadeInElements);
+    // Check on scroll
+    window.addEventListener('scroll', fadeInElements);
+</script>
 </body>
 </html>
